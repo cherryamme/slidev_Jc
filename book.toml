@@ -1,0 +1,36 @@
+[book]
+authors = ["Jesse"]
+language = "zh-CN"
+multilingual = false
+src = "src"
+title = "Jesse的slidev入门"
+
+[build]
+build-dir = "book"
+create-missing = true
+
+[output.html.playpen]
+editable = true
+copy-js = true
+
+[output.html.print]
+enable = false
+
+[output.html.search]
+enable = true
+limit-results = 30
+teaser-word-count = 30
+use-boolean-and = true
+boost-title = 2
+boost-hierarchy = 1
+boost-paragraph = 1
+expand = true
+heading-split-level = 3
+copy-js = true
+
+[output.html]
+site-url = "/mdbook_jc/"
+no-section-label = true
+mathjax-support = true
+google-analytics = "G-2EVQ2574ZB"
+git-repository-url = "https://github.com/cherryamme/mdbook_jc"
