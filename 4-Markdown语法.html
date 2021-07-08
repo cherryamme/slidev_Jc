@@ -1,0 +1,481 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>1-Markdown语法 - Jesse的slidev入门</title>
+        <!-- Custom HTML head -->
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="index.html">Slidev</a></li><li class="chapter-item expanded "><a href="1-slidev简介.html">简介</a></li><li class="chapter-item expanded "><a href="2-开始使用.html">总览</a></li><li class="chapter-item expanded "><a href="3-安装.html">安装</a></li><li class="chapter-item expanded "><div>用法</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="4-Markdown语法.html" class="active">1-Markdown语法</a></li><li class="chapter-item expanded "><a href="5-导航.html">2-导航</a></li><li class="chapter-item expanded "><a href="6-动画.html">3-动画</a></li><li class="chapter-item expanded "><a href="7-导出.html">4-导出</a></li><li class="chapter-item expanded "><a href="8-演讲录制.html">5-演讲录制</a></li><li class="chapter-item expanded "><a href="9-演讲者模式.html">6-演讲者模式</a></li></ol></li><li class="chapter-item expanded "><div>自定义</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="10-VSCode插件.html">1-VSCode 插件</a></li><li class="chapter-item expanded "><a href="11-主题.html">2-主题</a></li><li class="chapter-item expanded "><a href="12-自定义.html">3-自定义</a></li></ol></li><li class="chapter-item expanded "><a href="13-slidev项目结构.html">slidev项目结构</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Jesse的slidev入门</h1>
+
+                    <div class="right-buttons">
+                        <a href="https://github.com/cherryamme/mdbook_jc" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!-- order:4 -->
+<h2 id="markdown-语法"><a class="header" href="#markdown-语法">Markdown 语法</a></h2>
+<p>你可以像平时编写 markdown 一样使用 <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">Markdown 的相关特性</a>，同时还支持内联的 HTML 和 Vue 组件。也支持使用 <a href="https://windicss.org/">Windi CSS</a> 来编写样式。使用 <code>---</code> 添加分隔符来分隔你的幻灯片。</p>
+<pre><code class="language-markdown"># Slidev
+
+Hello, World!
+
+---
+
+# Page 2
+
+Directly use code blocks for highlighting
+
+```ts
+console.log('Hello, World!')
+```
+
+---
+
+# Page 3
+
+You can directly use Windi CSS and Vue components to style and enrich your slides.
+
+&lt;div class=&quot;p-3&quot;&gt;
+  &lt;Tweet id=&quot;20&quot; /&gt;
+&lt;/div&gt;
+</code></pre>
+<h3 id="扉页及布局"><a class="header" href="#扉页及布局">扉页及布局</a></h3>
+<p>你可以通过将分隔符转换为 <a href="https://jekyllrb.com/docs/front-matter/">扉页块 (front matter)</a>，为每张幻灯片指定布局 (layout) 和其他元数据。每个扉页信息都以分隔符 <code>---</code> 开始，以另一个分隔符 <code>---</code> 结束。两个分隔符之间的文本是 <a href="https://www.cloudbees.com/blog/yaml-tutorial-everything-you-need-get-started/">YAML</a> 格式的数据对象。具体示例如下：</p>
+<pre><code class="language-markdown">---
+layout: cover
+---
+
+# Slidev
+
+This is the cover page.
+
+---
+layout: center
+background: './images/background-1.png'
+class: 'text-white'
+---
+
+# Page 2
+
+This is a page with the layout `center` and a background image.
+
+---
+
+# Page 3
+
+This is a default page without any additional metadata.
+</code></pre>
+<h3 id="代码块"><a class="header" href="#代码块">代码块</a></h3>
+<p>建立 Slidev 一个非常重要的原因就是为了让代码在幻灯片中拥有正确的高亮。如你所见，你可以使用 Markdown 风格的代码块，以使得你的代码高亮。</p>
+<pre><code class="language-ts">```ts
+console.log('Hello, World!')
+```
+</code></pre>
+<h3 id="a-hrefhttpscnslidevguidesyntaxhtmlline-highlightinga特定行高亮"><a class="header" href="#a-hrefhttpscnslidevguidesyntaxhtmlline-highlightinga特定行高亮"><a href="https://cn.sli.dev/guide/syntax.html#line-highlighting">#</a>特定行高亮</a></h3>
+<p>如需针对特定行进行高亮展示，只需在 <code>{}</code> 内添加对应的行号。行号从 1 开始计算。</p>
+<pre><code class="language-ts">```ts {2,3}
+function add(
+  a: Ref&lt;number&gt; | number,
+  b: Ref&lt;number&gt; | number
+) {
+  return computed(() =&gt; unref(a) + unref(b))
+}
+```
+</code></pre>
+<p>如果要在多个步骤中改变高亮，你可以用 <code>|</code> 分隔它们。比如：</p>
+<pre><code class="language-ts">```ts {2-3|5|all}
+function add(
+  a: Ref&lt;number&gt; | number,
+  b: Ref&lt;number&gt; | number
+) {
+  return computed(() =&gt; unref(a) + unref(b))
+}
+```
+</code></pre>
+<p>这段代码会先对 <code>a: Ref&lt;number&gt; | number</code> 和 <code>b: Ref&lt;number&gt; | number</code> 进行高亮展示，当你点击幻灯片后，会高亮展示 <code>return computed(() =&gt; unref(a) + unref(b))</code>，最后，会对整个块进行高亮展示。你可以在 <a href="https://cn.sli.dev/guide/animations.html">动画指南</a> 中了解更多。</p>
+<h3 id="monaco-编辑器"><a class="header" href="#monaco-编辑器">Monaco 编辑器</a></h3>
+<p>当你需要在演示文稿中做修改时，只需在语言 id 后添加 <code>{monaco}</code> —— 即可将该代码块变为一个功能齐全的 Monaco 编辑器。</p>
+<pre><code class="language-ts">```ts {monaco}
+console.log('HelloWorld')
+```
+</code></pre>
+<h3 id="内联样式"><a class="header" href="#内联样式">内联样式</a></h3>
+<p>你可以在 Markdown 中直接使用 <code>&lt;style&gt;</code> 标签来覆盖<strong>当前幻灯片</strong>的样式。</p>
+<pre><code class="language-html"># This is Red
+
+&lt;style&gt;
+h1 {
+  color: red
+}
+&lt;/style&gt;
+
+---
+
+# Next slide is not affected
+</code></pre>
+<p>Markdown 中的 <code>&lt;style&gt;</code> 标签均为 <a href="https://vue-loader.vuejs.org/guide/scoped-css.html">scoped</a>。如果想覆盖全局样式，请查阅 <a href="https://cn.sli.dev/custom/directory-structure.html#style">项目结构</a>。</p>
+<p>在 <a href="https://windicss.org/">Windi CSS</a> 的支持下，你可以直接使用嵌套的 CSS 和 <a href="https://windicss.org/features/directives.html">指令集</a>。(例如，<code>@apply</code>)</p>
+<pre><code class="language-html"># Slidev
+
+&gt; Hello `world`
+
+&lt;style&gt;
+blockquote {
+  code {
+    @apply text-teal-500 dark:text-teal-400;
+  }
+}
+&lt;/style&gt;
+</code></pre>
+<h3 id="静态资源图片"><a class="header" href="#静态资源图片">静态资源(图片)</a></h3>
+<p>和编写 Markdown 的方式一样，你可以使用本地或远程的 URL 的图片。</p>
+<p>如果是远程资源，内置的 <code>vite-plugin-remote-assets</code>将在第一次运行时把它们缓存到磁盘中，即便是大图也能实现立即加载。</p>
+<pre><code class="language-markdown">![Remote Image](https://sli.dev/favicon.png)
+</code></pre>
+<p>如果是本地资源，请将资源放置到 <code>public</code> 文件夹 中并使用 <strong>/</strong> 开头的 URL 来引用它们。</p>
+<pre><code class="language-markdown">![Local Image](/pic.png)
+</code></pre>
+<p>如果你想使用自定义的尺寸或样式，可以使用 <code>&lt;img&gt;</code> 标签</p>
+<pre><code class="language-markdown">&lt;img src=&quot;/pic.png&quot; class=&quot;m-40 h-40 rounded shadow&quot; /&gt;
+</code></pre>
+<h3 id="备注"><a class="header" href="#备注">备注</a></h3>
+<p>你也可以为每张幻灯片编写备注。它们将展示在 <a href="https://cn.sli.dev/guide/presenter-mode.html">演讲者模式</a> 中，供你在演示时参考。</p>
+<p>在 Markdown 中，每张幻灯片中的最后一个注释块将被视为备注。</p>
+<pre><code class="language-markdown">---
+layout: cover
+---
+
+# 第 1 页
+
+This is the cover page.
+
+&lt;!-- 这是一条备注 --&gt;
+
+---
+
+# 第 2 页
+
+&lt;!-- 这不是一条备注，因为它在幻灯片内容前 --&gt;
+
+The second page
+
+&lt;!--
+这是另一条备注
+--&gt;
+</code></pre>
+<h3 id="图标"><a class="header" href="#图标">图标</a></h3>
+<p>Slidev 允许你在 Markdown 中<strong>直接</strong>访问几乎所有的开源的图标集。这得益于 <a href="https://github.com/antfu/vite-plugin-icons"><code>vite-plugin-icons</code></a> 和 <a href="https://iconify.design/">Iconify</a>。</p>
+<p>图标 ID 遵循 <a href="https://iconify.design/">Iconify</a> 的命名规则 <code>{collection-name}-{icon-name}</code>。例如：</p>
+<ul>
+<li>使用 <a href="https://github.com/Templarian/MaterialDesign">Material Design Icons</a>，其规则为 <code>&lt;mdi-account-circle /&gt;</code> - </li>
+<li>使用 <a href="https://github.com/carbon-design-system/carbon/tree/main/packages/icons">Carbon</a>，其规则为 <code>&lt;carbon-badge /&gt;</code> - </li>
+<li>使用 <a href="https://github.com/Iconscout/unicons">Unicons Monochrome</a>，其规则为 <code>&lt;uim-rocket /&gt;</code> - </li>
+<li>使用 <a href="https://github.com/twitter/twemoji">Twemoji</a>，其规则为 <code>&lt;twemoji-cat-with-tears-of-joy /&gt;</code> - </li>
+<li>使用 <a href="https://github.com/gilbarbara/logos">SVG Logos</a>，其规则为 <code>&lt;logos-vue /&gt;</code> - </li>
+<li>还有更多...</li>
+</ul>
+<p>你可以通过 <a href="https://icones.js.org/">Icônes</a> 来浏览访问所有可用的图标。</p>
+<h4 id="调整图标样式"><a class="header" href="#调整图标样式">调整图标样式</a></h4>
+<p>你可以像其他 HTML 元素一样对图标的样式进行修改。例如：</p>
+<pre><code class="language-html">&lt;uim-rocket /&gt;
+&lt;uim-rocket class=&quot;text-3xl text-red-400 mx-2&quot; /&gt;
+&lt;uim-rocket class=&quot;text-3xl text-orange-400 animate-ping&quot; /&gt;
+</code></pre>
+<h3 id="插槽"><a class="header" href="#插槽">插槽</a></h3>
+<p>一些布局可以使用 <a href="https://v3.vuejs.org/guide/component-slots.html">Vue 的具名插槽</a>。</p>
+<p>例如，在 <a href="https://github.com/slidevjs/slidev/blob/main/packages/client/layouts/two-cols.vue"><code>two-cols</code> 布局</a> 中，你可以采用左（<code>default</code> 插槽）右（<code>right</code> 插槽）两列的布局方式。</p>
+<pre><code class="language-markdown">---
+layout: two-cols
+---
+
+&lt;template v-slot:default&gt;
+
+# Left
+
+This shows on the left
+
+&lt;/template&gt;
+&lt;template v-slot:right&gt;
+
+# Right
+
+This shows on the right
+
+&lt;template&gt;
+</code></pre>
+<p>我们还未具名插槽提供了一个语法糖 <code>::name::</code>。下述示例与上述示例的工作原理完全相同。</p>
+<pre><code class="language-markdown">---
+layout: two-cols
+---
+
+# Left
+
+This shows on the left
+
+::right::
+
+# Right
+
+This shows on the right
+</code></pre>
+<p>你也可以明确的指定默认插槽，并按自定义顺序展示。</p>
+<pre><code class="language-markdown">---
+layout: two-cols
+---
+
+::right::
+
+# Right
+
+This shows on the right
+
+::default::
+
+# Left
+
+This shows on the left
+</code></pre>
+<h3 id="配置"><a class="header" href="#配置">配置</a></h3>
+<p>依赖的所有配置都可以在 Markdown 文件中定义，比如：</p>
+<pre><code class="language-markdown">---
+theme: seriph
+layout: cover
+background: 'https://source.unsplash.com/1600x900/?nature,water'
+---
+
+# Slidev
+
+This is the cover page.
+</code></pre>
+<h3 id="图表"><a class="header" href="#图表">图表</a></h3>
+<p>你也可以在 Markdown 的文本描述中创建图形或图表，得益于 <a href="https://mermaid-js.github.io/mermaid">Mermaid</a>。</p>
+<p>被标记为 <code>mermaid</code> 的代码块将被转换为图形，例如：</p>
+<pre><code>​```mermaid
+sequenceDiagram
+  Alice-&gt;John: Hello John, how are you?
+  Note over Alice,John: A typical interaction
+​```
+</code></pre>
+<p>你可以向它传递一个配置项来指定缩放和主题。该对象的语法是 JavaScript 的对象字面量，你需要对字符串添加引号 (<code>'</code>)，并在键与键之间使用(<code>,</code>)。</p>
+<pre><code>​```mermaid {theme: 'neutral', scale: 0.8}
+graph TD
+B[Text] --&gt; C{Decision}
+C --&gt;|One| D[Result 1]
+C --&gt;|Two| E[Result 2]
+​```
+</code></pre>
+<p>了解更多：<a href="https://sli.dev/demo/starter/9">Demo</a> | <a href="https://mermaid-js.github.io/mermaid">Mermaid</a></p>
+<h3 id="多个入口点"><a class="header" href="#多个入口点">多个入口点</a></h3>
+<p>这意味着你可以将 <code>slides.md</code> 分割成多个文件，并可以按照你的需求组织它们。</p>
+<p><code>slides.md</code> :</p>
+<pre><code># Page 1
+
+This is a normal page
+
+---
+src: ./subpage2.md
+background: https://sli.dev/bar.png
+class: text-center
+---
+
+&lt;!-- this page will be loaded from './subpage2.md' --&gt;
+Inline content will be ignored
+</code></pre>
+<p><code>subpage2.md</code> :</p>
+<pre><code>---
+layout: cover
+background: https://sli.dev/foo.png
+---
+# Page 2
+
+This page is from another file
+</code></pre>
+<blockquote>
+<p>**Tips：**主入口的frontmatter会有更高的优先级</p>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="3-安装.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="5-导航.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="3-安装.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="5-导航.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Google Analytics Tag -->
+        <script type="text/javascript">
+            var localAddrs = ["localhost", "127.0.0.1", ""];
+
+            // make sure we don't activate google analytics if the developer is
+            // inspecting the book locally...
+            if (localAddrs.indexOf(document.location.hostname) === -1) {
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+                ga('create', 'G-2EVQ2574ZB', 'auto');
+                ga('send', 'pageview');
+            }
+        </script>
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="editor.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mode-rust.js" type="text/javascript" charset="utf-8"></script>
+        <script src="theme-dawn.js" type="text/javascript" charset="utf-8"></script>
+        <script src="theme-tomorrow_night.js" type="text/javascript" charset="utf-8"></script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>
